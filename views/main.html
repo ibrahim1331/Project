@@ -1,0 +1,229 @@
+<html>
+<head>
+    <title>AWS Connection</title>
+    <link href="../components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="../assets/css/main.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+
+    <style>
+        body {
+            padding-top: 50px;
+        }
+        .starter-template {
+            padding: 40px 15px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Project name</a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Home</a></li>
+                </ul>
+            </div><!--/.nav-collapse -->
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="starter-template">
+            <h1>This is used for making connection to AWS server</h1>
+            <h3>For starting new instances</h3>
+            <form name="form" action="#">
+                <input type="text" name="accessKey" placeholder="AWS Access Key" required/>
+                <input type="text" name="secretKey" placeholder="AWS Secret Key" required/>
+                <button type="submit">Submit</button>
+                <button type="reset">Reset</button>
+            </form>
+        </div>
+        <section id="services" class="services-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1>Start Instance</h1>
+                        <div class="row">
+                            <!-- Modal -->
+                            <div class="modal fade" id="myModalNorm" tabindex="-1" role="dialog"
+                                 aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <!-- Modal Header -->
+                                        <div class="modal-header">
+                                            <button type="button" class="close"
+                                                    data-dismiss="modal">
+                                                <span aria-hidden="true">&times;</span>
+                                                <span class="sr-only">Close</span>
+                                            </button>
+                                            <h4 class="modal-title" id="myModalLabel">
+                                                Please Input Key
+                                            </h4>
+                                        </div>
+
+                                        <!-- Modal Body -->
+                                        <div class="modal-body">
+                                            <form role="form" id="keyForm">
+                                                <div class="form-group">
+                                                    <label id="publicKeyLabel">AWS Public Key</label>
+                                                    <input id="awsPublicKey" type="email" class="form-control required" placeholder="Public Key" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="publicKeyLabel">AWS Secret Key</label>
+                                                    <input id="awsSecretKey" type="password" class="form-control required" placeholder="Secret Key" />
+                                                </div>
+                                            </form>
+                                        </div>
+
+                                        <!-- Modal Footer -->
+                                        <div class="modal-footer">
+                                            <div id="error-message">
+                                               <!--For error messages-->
+                                            </div>
+                                            <button type="button" class="btn btn-default"
+                                                    data-dismiss="modal">
+                                                Close
+                                            </button>
+                                            <button id="continueButton" data-target=type="button" class="btn btn-primary" data-dismiss="modal">
+                                                Continue
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">Create Instance
+                                    </div>
+                                    <div class="panel-body">
+                                        <div id="service_selector" class="row text-center">
+                                            <div id="aws" class="col-xs-4 selected">
+                                                <span class="fa-stack fa-5x serviceProvider">
+                                                    <i class="fa fa-square fa-stack-2x"></i>
+                                                    <i class="fa fa-amazon fa-stack-1x fa-inverse"></i>
+                                                </span>
+                                                <br/>
+                                                <span>Amazon Web Services</span>
+                                            </div>
+                                            <div id="google" class="col-xs-4">
+                                                <span class="fa-stack fa-5x serviceProvider">
+                                                    <i class="fa fa-square fa-stack-2x"></i>
+                                                    <i class="fa fa-google fa-stack-1x fa-inverse"></i>
+                                                </span>
+                                                <br/>
+                                                <span>Google Cloud</span>
+                                            </div>
+                                            <div id="aliyun" class="col-xs-4">
+                                                <span class="fa-stack fa-5x serviceProvider">
+                                                    <i class="fa fa-square fa-stack-2x"></i>
+                                                    <i class="fa fa-cloud fa-stack-1x fa-inverse"></i>
+                                                </span>
+                                                <br/>
+                                                <span>Aliyun</span>
+                                            </div>
+                                        </div>
+                                        <form id="bootstrapSelectForm" method="post" class="form-horizontal hidden">
+                                            <div class="form-group">
+                                                <label class="col-xs-4 control-label">Instance Size</label>
+                                                <div class="col-xs-6 selectContainer">
+                                                    <select id = "size_selector" name="language" class="form-control selectpicker">
+                                                        <option value="small">aSmall</option>
+                                                        <option value="medium">aMedium</option>
+                                                        <option value="large">aLarge</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-xs-4 control-label">Opearating System</label>
+                                                <div class="col-xs-6 selectContainer">
+                                                    <select id = "os_selector" name="language" class="form-control selectpicker">
+                                                        <option value="ubuntu">Ubuntu</option>
+                                                        <option value="centos">CentOS</option>
+                                                        <option value="debian">Debian</option>
+                                                        <option value="suse">OpenSUSE</option>
+                                                        <option value="windows">Windows Server</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-xs-4 control-label">Disk Type</label>
+                                                <div  class="col-xs-6 selectContainer ">
+                                                    <select id = "diskT_selector" name="language" class="form-control selectpicker">
+                                                        <option value="standard">Standard</option>
+                                                        <option value="ssd">SSD</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-xs-4 control-label">Disk Size</label>
+                                                <div class="col-xs-6 selectContainer">
+                                                    <select id="diskS_selector" name="language" class="form-control selectpicker">
+                                                        <option value="small">Small(10G)</option>
+                                                        <option value="medium">Medium(30G)</option>
+                                                        <option value="large">Large(80G)</option>
+                                                    </select>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-xs-4 control-label">Region</label>
+                                                <div class="col-xs-6 selectContainer">
+                                                    <select id="region_selector" name="language" class="form-control selectpicker">
+                                                        <option value="am">America</option>
+                                                        <option value="as">Asia</option>
+                                                        <option value="eu">Europe</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-xs-4 control-label">Availability Zones</label>
+                                                <div class="col-xs-6 selectContainer">
+                                                    <select id="availability_zone_selector" name="language" class="form-control selectpicker">
+                                                        <option value=""></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="col-xs-6 col-xs-offset-4">
+                                                    <a  class="btn btn-default btn-block" data-toggle="modal" data-target="#myModalNorm">Confirm</a>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="../components/jquery/dist/jquery.js"></script>
+    <script src="../components/aws-sdk/dist/aws-sdk.js"></script>
+    <script src="../components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="../assets/js/jquery.blockUI.min.js"></script>
+    <script src="../assets/js/App.js"></script>
+    <script src="../assets/js/AWS.js"></script>
+    <script>
+        var App = new App();
+        var aws = new AmazonWebService();
+        App.init();
+        aws.init();
+    </script>
+</body>
+</html>

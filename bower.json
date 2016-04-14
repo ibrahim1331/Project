@@ -1,0 +1,24 @@
+{
+  "name": "CS4296 Project",
+  "authors": [
+    "Ibrahim1331 <m.ibrahim1331@gmail.com>"
+  ],
+  "description": "Project for the CS4296 - Cloud Computing Course",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "aws-sdk": "aws-sdk-js#^2.3.0",
+    "jquery": "^2.2.2",
+    "bootstrap": "^3.3.6"
+  }
+}
